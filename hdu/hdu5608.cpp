@@ -1,0 +1,52 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long LL;
+const LL MAXN = 1000000, MOD = 1e9 + 7, Inv3 = 333333336;
+LL mu[MAXN + 10], prime[MAXN + 10], tot;
+bool check[MAXN + 10];
+void Shaker() {
+    memset(check, 0, sizeof(check));
+    mu[1] = 1; tot = 0;
+    for(int i = 2; i < MAXN; ++i) {
+        if(!check[i]) prime[tot++] = i, mu[i] = -1;
+        for(int j = 0; j < tot; ++j) {
+            if(i * prime[j] > MAXN) break;
+            check[i * prime[j]] = 1;
+            if(i % prime[j] == 0) {mu[i * prime[j]] = 0; break;}
+            else mu[i * prime[j]] = -mu[i];
+        }
+    }
+    for(int i = 2; i <= MAXN; ++i) mu[i] += mu[i - 1];
+}
+unordered_map<LL, LL> Hash;
+LL Cal(LL n) {
+    if(n <= MAXN) return mu[n];
+    if(Hash[n]) return Hash[n];
+    LL r = 0, res = 1;
+    for(LL i = 2; i <= n; i = r + 1) {
+        r = n / (n / i);
+        res -= (r - i + 1) * Cal(n / i);
+    }
+    return Hash[n] = res;
+}
+LL GetG(LL x) {
+    return x * (x - 1) % MOD * (x - 2) % MOD * Inv3 % MOD;
+}
+LL Solve(LL n) {
+    LL res = 0, r = 0;
+    for(LL i = 1; i <= n; i = r + 1) {
+        r = n / (n / i);
+        res = (res + ((Cal(r) % MOD - Cal(i - 1) % MOD + MOD) % MOD) * GetG(n / i) % MOD ) % MOD;
+    }
+    return res;
+}
+LL kdt, x;
+int main() {
+    Shaker();
+    cin >> kdt;
+    while(kdt--) {
+        cin >> x;
+        cout << Solve(x) << endl;
+    }
+    return 0;
+}
