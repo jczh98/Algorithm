@@ -1,0 +1,25 @@
+{
+    "files.associations": {
+        "chrono": "cpp",
+        "limits": "cpp",
+        "valarray": "cpp",
+        "*.tcc": "cpp",
+        "deque": "cpp",
+        "forward_list": "cpp",
+        "list": "cpp",
+        "unordered_map": "cpp",
+        "unordered_set": "cpp",
+        "vector": "cpp",
+        "system_error": "cpp",
+        "array": "cpp",
+        "initializer_list": "cpp",
+        "thread": "cpp",
+        "ios": "cpp",
+        "random": "cpp",
+        "iosfwd": "cpp",
+        "iterator": "cpp",
+        "tuple": "cpp",
+        "type_traits": "cpp",
+        "utility": "cpp"
+    }
+}
